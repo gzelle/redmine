@@ -1,0 +1,34 @@
+var involved_project_ids = $('#issue_project_ids').val();
+if(involved_project_ids==null) {
+  involved_project_ids='';
+}
+
+/* Compatibility with redmine_customize_core_fields plugin */
+<% if Redmine::Plugin.installed?(:redmine_customize_core_fields) && Setting['plugin_redmine_customize_core_fields']['override_issue_form'] == 'true' && @issue.project.module_enabled?("customize_core_fields") %>
+  replaceIssueFormWith('<%= escape_javascript(render :partial => 'issues/form_with_positions') %>');
+<% else %>
+  replaceIssueFormWith('<%= escape_javascript(render :partial => 'issues/form') %>');
+<% end %>
+
+/** Standard Redmine */
+<% if User.current.allowed_to?(:log_time, @issue.project) %>
+  $('#log_time').show();
+<% else %>
+  $('#log_time').hide();
+<% end %>
+/** End Standard Redmine */
+
+$('#issue_project_ids').val(involved_project_ids);
+
+var htmlContent = "";
+$.each(involved_project_ids, function(key, name) {
+  htmlContent += " <span class=\"list_projects_names\">"+ $('#issue_project_ids option[value='+name+']').html().replace(/&nbsp;/g, '').replace("» ","").replace("  ", "") + "</span>";
+});
+$("#projects_form #list_of_projects_per_issue").html(htmlContent);
+if (htmlContent == ""){
+  $(".and_x_other_projects").css("display", "none");
+  $("#answers-on-secondary-projects").hide()
+} else{
+  $(".and_x_other_projects").css("display","inline");
+  $("#answers-on-secondary-projects").show()
+}

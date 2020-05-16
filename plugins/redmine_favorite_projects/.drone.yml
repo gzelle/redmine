@@ -1,0 +1,88 @@
+pipeline:
+  tests:
+    image: redmineup/redmineup_ci
+    pull: true
+    commands:
+      - service postgresql start && service mysql start && sleep 5
+      - export PATH=~/.rbenv/shims:$PATH
+      - export CODEPATH=`pwd`
+      - /root/run_for.sh redmine_favorite_projects ${RUBY_VER} ${DB} ${REDMINE} ${PLUGINS}
+  slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    channel: builds
+    username: drone
+    when:
+      status: [ success, failure ]
+      matrix:
+        RUBY_VER: ruby-2.2.6
+        DB: mysql
+        LICENSE: pro
+        REDMINE: redmine-trunk
+matrix:
+  include:
+    - RUBY_VER: ruby-2.2.6
+      LICENSE: pro
+      DB: mysql
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-2.2.6
+      LICENSE: light
+      DB: mysql
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-2.2.6
+      LICENSE: pro
+      DB: pg
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-2.2.6
+      LICENSE: light
+      DB: pg
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-2.4.1
+      DB: mysql
+      LICENSE: light
+      REDMINE: redmine-3.4
+    - RUBY_VER: ruby-2.4.1
+      DB: pg
+      LICENSE: pro
+      PLUGINS: redmine_contacts+pro
+      REDMINE: redmine-3.4
+    - RUBY_VER: ruby-2.2.6
+      LICENSE: pro
+      DB: mysql
+      REDMINE: redmine-3.0
+    - RUBY_VER: ruby-2.4.1
+      DB: mysql
+      LICENSE: pro
+      REDMINE: redmine-4.0
+    - RUBY_VER: ruby-2.4.1
+      DB: pg
+      LICENSE: pro
+      REDMINE: redmine-4.0
+    - RUBY_VER: ruby-1.9.3
+      DB: pg
+      LICENSE: pro
+      REDMINE: redmine-2.6
+    - RUBY_VER: ruby-1.9.3
+      DB: pg
+      LICENSE: pro
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-1.9.3
+      DB: mysql
+      LICENSE: pro
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-1.9.3
+      DB: pg
+      LICENSE: light
+      REDMINE: redmine-3.3
+    - RUBY_VER: ruby-2.4.1
+      DB: mysql
+      LICENSE: pro
+      REDMINE: redmine-trunk
+    - RUBY_VER: ruby-2.4.1
+      DB: mysql
+      LICENSE: light
+      REDMINE: redmine-trunk
+    - RUBY_VER: ruby-2.4.1
+      DB: pg
+      LICENSE: pro
+      REDMINE: redmine-trunk
