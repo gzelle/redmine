@@ -17,6 +17,7 @@ db/*.db
 db/*.sqlite3
 db/schema.rb
 files/*
+!files/.gitkeep
 lib/redmine/scm/adapters/mercurial/redminehelper.pyc
 lib/redmine/scm/adapters/mercurial/redminehelper.pyo
 log/*.log*
@@ -33,7 +34,9 @@ tmp/pdf/*
 tmp/sessions/*
 tmp/sockets/*
 tmp/test/*
+!tmp/test/.gitkeep
 tmp/thumbnails/*
+!tmp/thumbnails/.gitkeep
 shared
 vendor
 *.rbc
