@@ -28,16 +28,16 @@ log/mongrel_debug
 #!/public/themes/alternate
 #!/public/themes/classic
 #!/public/themes/README
-tmp/*
-tmp/cache/*
-tmp/pdf/*
-tmp/sessions/*
-tmp/sockets/*
-tmp/test/*
-!tmp/test/.gitkeep
-tmp/thumbnails/*
-!tmp/thumbnails/.gitkeep
-shared
+#tmp/*
+#tmp/cache/*
+#tmp/pdf/*
+#tmp/sessions/*
+#tmp/sockets/*
+#tmp/test/*
+#!tmp/test/.gitkeep
+#tmp/thumbnails/*
+#!tmp/thumbnails/.gitkeep
+#shared
 vendor
 *.rbc
 
