@@ -2,6 +2,6 @@ production:
   adapter: mysql2
   database: redmine_default
   host: localhost
-  username: redmine_default
-  password: "admin"
+  username: root
+  password: "heP7Wud8joAv8neu"
   encoding: utf8
